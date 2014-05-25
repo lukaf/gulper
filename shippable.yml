@@ -1,9 +1,11 @@
 python:
     - "2.7"
 
+before_script: mkdir -p shippable/codecoverage
+
 install: pip install --use-mirrors coverage
 
 language: python
 
 script:
-    - nosetests --with-coverage
+    - nosetests --with-coverage --cover-xml-file=shippable/codecoverage/coverage.xml
