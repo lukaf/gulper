@@ -72,7 +72,12 @@ class DropletTest(unittest.TestCase):
         Droplet._request.assert_called_once_with('droplet/{0}/power_off'.format(self.droplet.id))
         self.assertEqual(self.droplet.status, 'power_off')
 
-    def test_password_reset(self):
+    def test_power_on_method(self):
+        self.droplet.power_on()
+        Droplet._request.assert_called_with('droplet/{0}/power_on'.format(self.droplet.id))
+        self.assertEqual(self.droplet.status, 'power_on')
+
+    def test_password_reset_method(self):
         self.droplet.password_reset()
         Droplet._request.assert_called_once_with('droplet/{0}/password_reset'.format(self.droplet.id))
 
