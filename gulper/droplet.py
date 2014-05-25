@@ -1,5 +1,3 @@
-# TODO:
-# test droplet
 from gulper.request import Request
 
 
@@ -10,7 +8,7 @@ class Droplet(object):
         self.image_id = None
         self.size_id = None
         self.region_id = None
-        self.backups_active = None
+        self.backups_active = False
         self.ip_address = None
         self.private_ip_address = None
         self.locked = None
@@ -47,16 +45,16 @@ class Droplet(object):
         response = self._request('droplet/{0}/shutdown'.format(self.id))
         return self._status_update(response, 'shutdown')
 
-    def poweroff(self):
+    def power_off(self):
         response = self._request('droplet/{0}/power_off'.format(self.id))
-        return self._status_update(response, 'poweroff')
+        return self._status_update(response, 'power_off')
 
-    def poweron(self):
+    def power_on(self):
         response = self._request('droplet/{0}/power_on'.format(self.id))
-        return self._status_update(response, 'poweron')
+        return self._status_update(response, 'power_on')
 
     def password_reset(self):
-        return self._request('droplet/{0}/password_reset')
+        return self._request('droplet/{0}/password_reset'.format(self.id))
 
     def resize(self):
         raise NotImplementedError()
