@@ -49,37 +49,41 @@ class DropletTest(unittest.TestCase):
 
     def test_update_method(self):
         self.droplet.update()
-        Droplet._request.assert_called_once_with('droplet/{0}'.format(self.droplet.id))
+        Droplet._request.assert_called_once_with('droplets/{0}'.format(self.droplet.id))
         self.assertEqual(self.droplet.created_at, 'future')
 
     def test_reboot_method(self):
         self.droplet.reboot()
-        Droplet._request.assert_called_once_with('droplet/{0}/reboot'.format(self.droplet.id))
+        Droplet._request.assert_called_once_with('droplets/{0}/reboot'.format(self.droplet.id))
         self.assertEqual(self.droplet.status, 'reboot')
 
     def test_power_cycle_method(self):
         self.droplet.power_cycle()
-        Droplet._request.assert_called_once_with('droplet/{0}/power_cycle'.format(self.droplet.id))
+        Droplet._request.assert_called_once_with('droplets/{0}/power_cycle'.format(self.droplet.id))
         self.assertEqual(self.droplet.status, 'power_cycle')
 
     def test_shutdown_method(self):
         self.droplet.shutdown()
-        Droplet._request.assert_called_once_with('droplet/{0}/shutdown'.format(self.droplet.id))
+        Droplet._request.assert_called_once_with('droplets/{0}/shutdown'.format(self.droplet.id))
         self.assertEqual(self.droplet.status, 'shutdown')
 
     def test_power_off_method(self):
         self.droplet.power_off()
-        Droplet._request.assert_called_once_with('droplet/{0}/power_off'.format(self.droplet.id))
+        Droplet._request.assert_called_once_with('droplets/{0}/power_off'.format(self.droplet.id))
         self.assertEqual(self.droplet.status, 'power_off')
 
     def test_power_on_method(self):
         self.droplet.power_on()
-        Droplet._request.assert_called_with('droplet/{0}/power_on'.format(self.droplet.id))
+        Droplet._request.assert_called_with('droplets/{0}/power_on'.format(self.droplet.id))
         self.assertEqual(self.droplet.status, 'power_on')
 
     def test_password_reset_method(self):
         self.droplet.password_reset()
-        Droplet._request.assert_called_once_with('droplet/{0}/password_reset'.format(self.droplet.id))
+        Droplet._request.assert_called_once_with('droplets/{0}/password_reset'.format(self.droplet.id))
+
+    def test_destroy_method(self):
+        self.droplet.destroy()
+        Droplet._request.assert_called_once_with('droplets/{0}/destroy'.format(self.droplet.id))
 
 if __name__ == '__main__':
     unittest.main()

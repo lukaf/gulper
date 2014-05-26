@@ -27,34 +27,38 @@ class Droplet(object):
         return Request(path, **self.credentials).send()
 
     def update(self):
-        response = self._request('droplet/{0}'.format(self.id))
+        response = self._request('droplets/{0}'.format(self.id))
         if 'status' in response and response['status'] == 'OK':
             self.__dict__.update(response['droplet'])
             return True
         return None
 
     def reboot(self):
-        response = self._request('droplet/{0}/reboot'.format(self.id))
+        response = self._request('droplets/{0}/reboot'.format(self.id))
         return self._status_update(response, 'reboot')
 
     def power_cycle(self):
-        response = self._request('droplet/{0}/power_cycle'.format(self.id))
+        response = self._request('droplets/{0}/power_cycle'.format(self.id))
         return self._status_update(response, 'power_cycle')
 
     def shutdown(self):
-        response = self._request('droplet/{0}/shutdown'.format(self.id))
+        response = self._request('droplets/{0}/shutdown'.format(self.id))
         return self._status_update(response, 'shutdown')
 
     def power_off(self):
-        response = self._request('droplet/{0}/power_off'.format(self.id))
+        response = self._request('droplets/{0}/power_off'.format(self.id))
         return self._status_update(response, 'power_off')
 
     def power_on(self):
-        response = self._request('droplet/{0}/power_on'.format(self.id))
+        response = self._request('droplets/{0}/power_on'.format(self.id))
         return self._status_update(response, 'power_on')
 
     def password_reset(self):
-        return self._request('droplet/{0}/password_reset'.format(self.id))
+        return self._request('droplets/{0}/password_reset'.format(self.id))
+
+    def destroy(self):
+        response = self._request('droplets/{0}/destroy'.format(self.id))
+        return self._status_update(response, 'destroy')
 
     def resize(self):
         raise NotImplementedError()

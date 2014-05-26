@@ -7,7 +7,7 @@ log = logging.getLogger(__name__)
 
 
 class Request(object):
-    def __init__(self, path, uri='https://api.digitalocean.com', client_id=None, api_key=None):
+    def __init__(self, path, uri='https://api.digitalocean.com/v1', client_id=None, api_key=None):
         self.uri = uri
         self.client_id = client_id
         self.api_key = api_key
