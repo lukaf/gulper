@@ -17,7 +17,7 @@ class Client(object):
             raise ValueError("Missing client_id and/or api_key")
         self.credentials = {'client_id': self.client_id, 'api_key': self.api_key}
 
-    def droplets(self):
+    def get_all_droplets(self):
         response = Request('droplets', client_id=self.client_id, api_key=self.api_key).send()
         if response is None:
             return None
