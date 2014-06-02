@@ -7,14 +7,15 @@ log = logging.getLogger(__name__)
 
 
 class Request(object):
-    def __init__(self, path, uri='https://api.digitalocean.com/v1', client_id=None, api_key=None):
+    def __init__(self, path, uri='https://api.digitalocean.com/v1', client_id=None, api_key=None, **kwargs):
         self.uri = uri
         self.client_id = client_id
         self.api_key = api_key
         self.path = path
         self.rq = '{uri}/{path}?{query}'.format(
             uri=self.uri, path=path,
-            query=urllib.urlencode({'api_key': self.api_key, 'client_id': self.client_id}))
+            query=urllib.urlencode({'api_key': self.api_key, 'client_id': self.client_id}),
+            **kwargs)
         log.debug("Constructed URL: %s", self.rq)
 
     def send(self):
