@@ -22,4 +22,5 @@ class Request(object):
         response = json.loads(response)
         if response['status'] == 'OK':
             return response
+        log.error(response['message'])
         return None
