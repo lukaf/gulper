@@ -1,7 +1,8 @@
 ## Gulper
 
 Provides interface to [DigitalOcean](https://www.digitalocean.com).
-Requires no thir-party libraries.
+
+Requires no third-party libraries.
 
 ### Usage
 
