@@ -23,15 +23,46 @@ class Droplet(object):
             self.status = state
         return response
 
-    def _request(self, path):
-        return Request(path, **self.credentials).send()
+    def _request(self, path, **kwargs):
+        options = {}
+        if kwargs:
+            options.update(kwargs)
+        options.update(self.credentials)
+        return Request(path, **options).send()
+
+    def create(self, ssh_key_ids=None, private_networking=False):
+        options = {'name': self.name}
+        try:
+            options['size_slug'] = self.size_slug
+        except:
+            options['size_id'] = self.size_id
+
+        try:
+            options['image_slug'] = self.image_slug
+        except:
+            options['image_id'] = self.image_id
+
+        try:
+            options['region_slug'] = self.region_slug
+        except:
+            options['region_id'] = self.region_id
+
+        options.update({'ssh_key_ids': ssh_key_ids, 'private_networking': private_networking})
+        response = self._request('droplets/new', **options)
+        if response is None:
+            return response
+        if 'status' in response and response['status'] == 'OK':
+            self.__dict__.update(response['droplet'])
+        return self
 
     def update(self):
         response = self._request('droplets/{0}'.format(self.id))
+        if response is None:
+            return response
         if 'status' in response and response['status'] == 'OK':
             self.__dict__.update(response['droplet'])
             return True
-        return None
+        return False
 
     def reboot(self):
         response = self._request('droplets/{0}/reboot'.format(self.id))

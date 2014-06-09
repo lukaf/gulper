@@ -16,17 +16,26 @@ for droplet in droplets:
     print droplet.name, droplet.status
 ```
 
-Each droplet object can manipulate it's actual representation.
-Rebooting all droplets:
-
+Create a droplet:
 ```python
 import gulper
-droplets = gulper.client(client_id='id', api_key='key').get_all_droplets()
-for droplet in droplets:
-    droplet.reboot()
+client = gulper.client(client_id='id', api_key='key')
+droplet = client.create_droplet('mydroplet')
 ```
 
-### Supported droplet methods
+Wait until status is active:
+```python
+while droplet.status != 'active':
+    time.sleep(10)
+    droplet.update()
+```
+
+Destroy droplet:
+```python
+droplet.destroy()
+```
+
+### Droplet methods
 
 - **update**: update droplet status
 - **reboot**: reboot droplet
