@@ -15,6 +15,8 @@ class Droplet(object):
         self.status = None
         self.created_at = None
         self.credentials = None
+        self.ssh_key_ids = None
+        self.private_networking = None
 
         self.__dict__.update(kwargs)
 
@@ -31,6 +33,12 @@ class Droplet(object):
         return Request(path, **options).send()
 
     def create(self, ssh_key_ids=None, private_networking=False):
+        if ssh_key_ids is None:
+            ssh_key_ids = self.ssh_key_ids
+
+        if private_networking is False:
+            private_networking = self.private_networking
+
         options = {'name': self.name}
         try:
             options['size_slug'] = self.size_slug
