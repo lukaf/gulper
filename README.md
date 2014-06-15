@@ -6,11 +6,18 @@ Requires no third-party libraries.
 
 ### Usage
 
-Get all droplets:
-
+To get started, create a client:
 ```python
 import gulper
 client = gulper.client(client_id='id', api_key='key')
+```
+
+Credentials are then automatically passed on to subsequent calls
+and merged to relevant objects.
+
+Get all droplets:
+
+```python
 droplets = client.get_all_droplets()
 for droplet in droplets:
     print droplet.name, droplet.status
@@ -18,8 +25,6 @@ for droplet in droplets:
 
 Create a droplet:
 ```python
-import gulper
-client = gulper.client(client_id='id', api_key='key')
 droplet = client.create_droplet('mydroplet')
 ```
 
