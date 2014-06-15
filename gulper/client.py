@@ -1,6 +1,7 @@
 import logging
 from gulper.request import Request
 from gulper.droplet import Droplet
+from gulper.ssh_key import Key
 
 log = logging.getLogger(__name__)
 
@@ -22,6 +23,12 @@ class Client(object):
         if response is None:
             return None
         return [Droplet(credentials=self.credentials, **droplet_info) for droplet_info in response['droplets']]
+
+    def get_all_ssh_keys(self):
+        response = Request('ssh_keys', client_id=self.client_id, api_key=self.api_key).send()
+        if response is None:
+            return None
+        return [Key(credentials=self.credentials, **ssh_key) for ssh_key in response['ssh_keys']]
 
     def create_droplet(self, name, size='512mb', image='centos-5-8-x64', region='ams1', ssh_key_ids=None, private_networking=False):
         options = {}

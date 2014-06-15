@@ -14,7 +14,6 @@ class Droplet(object):
         self.locked = None
         self.status = None
         self.created_at = None
-        self.credentials = None
         self.ssh_key_ids = None
         self.private_networking = None
 
